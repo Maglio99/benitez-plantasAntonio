@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Benitez — Plantas & Verde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+--green-dark: #223420;
+--green-mid: #49b738;
+--green-light: #6b9e62;
+    --green-pale: #C8DFC4;
+--cream: #F7F4EE;
+--sand: #EDE8DF;
+--terra: rgb(25, 94, 55);
+--white: #FDFCFA;
+--mid: hsl(114, 8%, 51%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+    background: var(--cream);
+    color: var(--green-dark);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    }
+
+    nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(247, 244, 238, 0.9);
+    backdrop-filter: blur(14px);
+    border-bottom: 0.5px solid rgba(28, 43, 26, 0.12);
+    }
+
+    .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    letter-spacing: 0.05em;
+    color: var(--green-dark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    }
+
+    .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    }
+
+    .nav-links a {
+    text-decoration: none;
+    color: var(--mid);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+text-transform: uppercase;
+transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--green-dark); }
+
+    .nav-cart {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--green-mid);
+    text-decoration: none;
+    border: 0.5px solid var(--green-pale);
+    padding: 0.5rem 1rem;
+    transition: background 0.3s;
+    }
+
+    .nav-cart:hover { background: var(--green-pale); }
+
+    .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 72px;
+    }
+
+    .hero-left {
+    background: var(--green-dark);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    }
+
+    .hero-plant {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 360px;
+    animation: sway 7s ease-in-out infinite;
+    transform-origin: bottom center;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 0.5px;
+      background: var(--green-light);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      line-height: 1.1;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero h1 em { font-style: italic; color: var(--green-light); }
+
+    .hero p { color: var(--mid); max-width: 360px; margin-bottom: 2.75rem; }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.25rem;
+      background: var(--green-mid);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.9rem 2.25rem;
+      background: transparent;
+      color: var(--green-mid);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 0.5px solid var(--green-mid);
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+
+    .btn-outline:hover { background: var(--green-pale); }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .stats {
+      background: var(--sand);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 0.5px solid rgba(28,43,26,0.1);
+      border-bottom: 0.5px solid rgba(28,43,26,0.1);
+    }
+
+    .stat {
+      padding: 2.5rem;
+      text-align: center;
+      border-right: 0.5px solid rgba(28,43,26,0.1);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--green-mid);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
+
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+
+    .section-header .tag {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .section-header .tag::before,
+    .section-header .tag::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 0.5px;
+      background: var(--green-pale);
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--green-dark);
+    }
+
+    .section-header h2 em { font-style: italic; }
+
+    .featured { padding: 6rem 4rem; background: var(--white); }
+
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+    .product-card { cursor: pointer; }
+
+    .product-img-wrap {
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--sand);
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .product-visual {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .product-card:hover .product-visual { transform: scale(1.04); }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: var(--green-dark);
+      color: var(--cream);
+      z-index: 1;
+    }
+
+    .product-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.2rem; }
+
+    .product-sub { font-size: 12px; color: var(--mid); margin-bottom: 0.4rem; }
+
+    .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
+
+    .product-price { font-weight: 400; color: var(--green-mid); font-size: 1rem; }
+
+    .btn-add {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      border: 0.5px solid var(--green-pale);
+      padding: 5px 12px;
+      cursor: pointer;
+      background: none;
+      font-family: 'Jost', sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .btn-add:hover { background: var(--green-mid); color: white; }
+
+    .care { padding: 6rem 4rem; background: var(--green-dark); }
+
+    .care .section-header .tag { color: rgba(200,223,196,0.5); }
+    .care .section-header .tag::before,
+    .care .section-header .tag::after { background: rgba(200,223,196,0.2); }
+    .care .section-header h2 { color: var(--cream); }
+
+    .care-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+    .care-card {
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(200,223,196,0.15);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+
+    .care-card:hover { background: rgba(255,255,255,0.09); }
+
+    .care-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+
+    .care-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--green-pale); margin-bottom: 0.5rem; }
+
+    .care-desc { font-size: 13px; color: rgba(200,223,196,0.55); line-height: 1.6; }
+
+    .banner {
+      background: var(--terra);
+      padding: 5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .banner h2 em { font-style: italic; }
+
+    .banner p { color: rgba(247,244,238,0.65); margin-bottom: 2rem; }
+
+    .banner-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .banner-list li {
+      color: rgba(247,244,238,0.8);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .banner-list li::before { content: '✦'; font-size: 10px; color: var(--green-pale); flex-shrink: 0; }
+
+    .btn-light {
+      display: inline-block;
+      padding: 0.9rem 2.25rem;
+      background: var(--cream);
+      color: var(--terra);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+
+    .btn-light:hover { background: white; }
+
+    .newsletter { padding: 6rem 4rem; text-align: center; background: var(--sand); }
+
+    .newsletter-leaf { font-size: 2rem; margin-bottom: 1rem; }
+
+    .newsletter h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+      color: var(--green-dark);
+    }
+
+    .newsletter p { color: var(--mid); margin-bottom: 2.5rem; }
+
+    .newsletter-form { display: flex; max-width: 420px; margin: 0 auto; }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.9rem 1.25rem;
+      border: 0.5px solid rgba(28,43,26,0.2);
+      background: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      outline: none;
+      color: var(--green-dark);
+      border-radius: 2px 0 0 2px;
+    }
+
+    .newsletter-form input::placeholder { color: var(--mid); }
+    .newsletter-form input:focus { border-color: var(--green-mid); }
+
+    .newsletter-form button {
+      padding: 0.9rem 1.5rem;
+      background: var(--green-mid);
+      color: white;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 0 2px 2px 0;
+      transition: background 0.3s;
+    }
+
+    .newsletter-form button:hover { background: var(--green-dark); }
+
+    footer {
+      background: var(--green-dark);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .logo { color: var(--cream); font-size: 1.1rem; }
+
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(200,223,196,0.4);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--green-pale); }
+
+    .footer-copy { font-size: 12px; color: rgba(200,223,196,0.25); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: translateX(-50%) rotate(-1.5deg); }
+      50% { transform: translateX(-50%) rotate(1.5deg); }
+    }
+
+    .fade-up { opacity: 0; animation: fadeUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { min-height: 55vw; }
+      .hero-right { padding: 4rem 1.5rem; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 0.5px solid rgba(28,43,26,0.1); }
+      .stat:last-child { border-bottom: none; }
+      .featured { padding: 4rem 1.5rem; }
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      .care { padding: 4rem 1.5rem; }
+      .care-grid { grid-template-columns: 1fr 1fr; }
+      .banner { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
+      .newsletter { padding: 4rem 1.5rem; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { border-radius: 2px; }
+      .newsletter-form button { border-radius: 2px; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 560px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .care-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">🌿 Benitez</a>
+    <ul class="nav-links">
+      <li><a href="#plantas">Plantas</a></li>
+      <li><a href="#cuidados">Cuidados</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#" class="nav-cart">🛒 Carrito</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <svg class="hero-plant" viewBox="0 0 320 520" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <path d="M140 500 Q138 480 135 460 L185 460 Q182 480 180 500 Z" fill="#A0714F" opacity="0.9"/>
+        <rect x="128" y="452" width="64" height="14" rx="4" fill="#8B5E3C"/>
+        <path d="M160 452 Q158 380 155 310 Q152 240 150 170" stroke="#3A5C35" stroke-width="5" stroke-linecap="round"/>
+        <path d="M155 360 Q100 325 78 285 Q112 278 152 315 Q155 338 155 360" fill="#3A5C35"/>
+        <path d="M156 315 Q212 278 232 238 Q198 232 158 268 Q155 292 156 315" fill="#4A7040"/>
+        <path d="M154 400 Q95 368 72 330 Q108 324 152 358 Q154 379 154 400" fill="#2A4A28"/>
+        <path d="M153 270 Q98 232 76 192 Q112 187 151 222 Q153 246 153 270" fill="#3A5C35"/>
+        <path d="M157 232 Q213 193 234 152 Q199 147 158 182 Q156 207 157 232" fill="#4A7040"/>
+        <path d="M151 200 Q95 160 74 120 Q109 116 150 150 Q152 175 151 200" fill="#2A4A28"/>
+        <path d="M150 170 Q120 115 116 70 Q148 88 155 138 Q154 154 150 170" fill="#3A5C35"/>
+        <path d="M150 170 Q182 112 188 65 Q155 84 148 135 Q148 153 150 170" fill="#4A7040"/>
+        <path d="M155 360 Q112 332 84 290" stroke="#2A4A28" stroke-width="1" opacity="0.4"/>
+        <path d="M156 315 Q207 283 230 244" stroke="#2A4A28" stroke-width="1" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <div class="hero-right">
+      <p class="hero-tag fade-up">Tienda de plantas Arica</p>
+      <h1 class="fade-up delay-1">Verde que<br /><em>transforma</em><br />tu espacio.</h1>
+      <p class="fade-up delay-2">Plantas de interior, exterior y suculentas seleccionadas a mano. Para quienes empiezan y para los que ya tienen las manos en la tierra.</p>
+      <div class="hero-ctas fade-up delay-3">
+        <a href="#plantas" class="btn-primary">Ver plantas</a>
+        <a href="#cuidados" class="btn-outline">Guía de cuidados</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">+Semillas</span>
+      <span class="stat-label">Variedades disponibles</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">Cambiando</span>
+      <span class="stat-label">Cultivando experiencia</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">Envíos</span>
+      <span class="stat-label">A todo Arica</span>
+    </div>
+  </div>
+
+  <section class="featured" id="plantas">
+    <div class="section-header">
+      <p class="tag">Lo más buscado</p>
+      <h2>Plantas Para ti <em></em></h2>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <span class="product-badge">Interior</span>
+          <div class="product-visual">
+            <img src="foto.png.jpeg" style="width:100%; height:100%; object-fit:cover;" />
+              <rect width="220" height="290" fill="#D9E8D4"/>
+              <path d="M90 265 Q88 272 86 278 L134 278 Q132 272 130 265 Z" fill="#A0714F"/>
+              <rect x="83" y="258" width="54" height="10" rx="3" fill="#8B5E3C"/>
+              <path d="M110 258 Q108 210 106 165 Q104 125 102 92" stroke="#3A5C35" stroke-width="4" stroke-linecap="round"/>
+              <path d="M106 200 Q72 175 57 150 Q82 145 105 168 Q106 184 106 200" fill="#3A5C35"/>
+              <path d="M107 162 Q140 136 150 108 Q126 106 107 130 Q106 146 107 162" fill="#4A7040"/>
+              <path d="M105 228 Q68 208 52 183 Q80 178 104 200 Q105 214 105 228" fill="#2A4A28"/>
+              <path d="M102 92 Q86 62 84 36 Q106 50 108 78 Q106 85 102 92" fill="#3A5C35"/>
+              <path d="M102 92 Q120 60 124 34 Q103 48 100 76 Q100 84 102 92" fill="#4A7040"/>
+            </svg>
+          </div>
+        </div>
+        <p class="product-name">Piña</p>
+        <p class="product-sub">Interior — Luz indirecta</p>
+        <div class="product-footer">
+          <span class="product-price">$1.000</span>
+          <button class="btn-add">+ Agregar</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <span class="product-badge">Suculenta</span>
+          <div class="product-visual">
+            <svg viewBox="0 0 220 290" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <rect width="220" height="290" fill="#E8E2D5"/>
+              <path d="M82 268 Q80 273 78 278 L142 278 Q140 273 138 268 Z" fill="#A0714F"/>
+              <rect x="75" y="261" width="70" height="10" rx="3" fill="#8B5E3C"/>
+              <circle cx="110" cy="165" r="8" fill="#6B9E62"/>
+              <ellipse cx="110" cy="134" rx="15" ry="24" fill="#5A8F52"/>
+              <ellipse cx="134" cy="143" rx="15" ry="24" fill="#6B9E62" transform="rotate(45 110 165)"/>
+              <ellipse cx="143" cy="168" rx="15" ry="24" fill="#5A8F52" transform="rotate(90 110 165)"/>
+              <ellipse cx="132" cy="190" rx="15" ry="24" fill="#6B9E62" transform="rotate(135 110 165)"/>
+              <ellipse cx="110" cy="196" rx="15" ry="24" fill="#5A8F52" transform="rotate(180 110 165)"/>
+              <ellipse cx="88" cy="188" rx="15" ry="24" fill="#6B9E62" transform="rotate(225 110 165)"/>
+              <ellipse cx="78" cy="165" rx="15" ry="24" fill="#5A8F52" transform="rotate(270 110 165)"/>
+              <ellipse cx="88" cy="142" rx="15" ry="24" fill="#6B9E62" transform="rotate(315 110 165)"/>
+              <circle cx="110" cy="160" r="13" fill="#8FD485"/>
+              <circle cx="110" cy="160" r="5" fill="#6B9E62"/>
+            </svg>
+          </div>
+        </div>
+        <p class="product-name">Manzana</p>
+        <p class="product-sub">Suculenta — Pleno sol</p>
+        <div class="product-footer">
+          <span class="product-price">$1.000
+
+          </span>
+          <button class="btn-add">+ Agregar</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <span class="product-badge">Exterior</span>
+          <div class="product-visual">
+            <svg viewBox="0 0 220 290" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <rect width="220" height="290" fill="#DDE8D6"/>
+              <path d="M85 265 Q83 271 81 278 L139 278 Q137 271 135 265 Z" fill="#8B5E3C"/>
+              <rect x="78" y="257" width="64" height="11" rx="3" fill="#7A5230"/>
+              <path d="M100 257 Q98 195 97 130 Q96 85 95 45" stroke="#3A5C35" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M115 257 Q116 190 118 118 Q120 72 122 40" stroke="#3A5C35" stroke-width="3" stroke-linecap="round"/>
+              <path d="M128 257 Q127 195 125 128 Q123 85 122 58" stroke="#4A7040" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M97 175 Q68 158 59 135 Q86 130 97 153" fill="#3A5C35"/>
+              <path d="M118 140 Q147 122 152 98 Q127 98 118 122" fill="#4A7040"/>
+              <path d="M97 108 Q68 89 60 66 Q88 63 97 88" fill="#3A5C35"/>
+              <path d="M120 88 Q150 70 156 48 Q130 48 120 72" fill="#4A7040"/>
+              <path d="M97 215 Q62 200 52 175 Q82 172 97 196" fill="#2A4A28"/>
+            </svg>
+          </div>
+        </div>
+        <p class="product-name">Limon de Pica</p>
+        <p class="product-sub">Exterior — Media sombra</p>
+        <div class="product-footer">
+          <span class="product-price">$1.000</span>
+          <button class="btn-add">+ Agregar</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="care" id="cuidados">
+    <div class="section-header">
+      <p class="tag">Guía rápida</p>
+      <h2>Cómo <em>cuidarlas</em></h2>
+    </div>
+    <div class="care-grid">
+      <div class="care-card">
+        <span class="care-icon">💧</span>
+        <p class="care-title">Riego</p>
+        <p class="care-desc">La mayoría prefiere tierra seca entre riego y riego. Menos es más.</p>
+      </div>
+      <div class="care-card">
+        <span class="care-icon">☀️</span>
+        <p class="care-title">Luz</p>
+        <p class="care-desc">Luz indirecta para la mayoría de las plantas de interior. Evitá el sol directo del mediodía.</p>
+      </div>
+      <div class="care-card">
+        <span class="care-icon">🌡️</span>
+        <p class="care-title">Temperatura</p>
+        <p class="care-desc">Entre 15° y 28°C es ideal. Alejadas de corrientes de aire frío.</p>
+      </div>
+      <div class="care-card">
+        <span class="care-icon">🪴</span>
+        <p class="care-title">Maceta</p>
+        <p class="care-desc">Siempre con agujero de drenaje. Tamaño acorde a las raíces, sin sobrar mucha tierra.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="banner" id="nosotros">
+    <div>
+      <h2>Cada planta<br /><em>tiene su historia.</em></h2>
+      <p>Seleccionamos cada ejemplar con cuidado y lo enviamos bien protegido para que llegue en perfectas condiciones.</p>
+      <a href="#plantas" class="btn-light">Ver catálogo completo</a>
+    </div>
+    <ul class="banner-list">
+      <li>Plantas cultivadas sin agroquímicos</li>
+      <li>Packaging 100% reciclable</li>
+      <li>Guía de cuidados con cada compra</li>
+      <li>Envíos a todo el país en 48–72 hs</li>
+      <li>Cambio sin costo si llega dañada</li>
+    </ul>
+  </section>
+
+  <section class="newsletter" id="contacto">
+    <div class="newsletter-leaf">🌱</div>
+    <h2>Sumate al vivero</h2>
+    <p>Novedades, consejos de cuidado y descuentos exclusivos — una vez al mes.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="tu@mail.com" />
+      <button type="button">Suscribirme</button>
+    </div>
+  </section>
+
+  <footer>
+    <a href="#" class="logo">🌿 Benitez</a>
+    <ul class="footer-links">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">WhatsApp</a></li>
+      <li><a href="#">Envíos y devoluciones</a></li>
+      <li><a href="#">Preguntas frecuentes</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Benitez — Hecho con 🌿</p>
+  </footer>
+
+</body>
+</html>
